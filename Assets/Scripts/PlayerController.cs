@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    GameManager gm;
+
     static int playerlife = 5; 
     float elapsedtime = 0.0f;
     float move = 0.0f;
@@ -19,6 +21,8 @@ public class PlayerController : MonoBehaviour
 
     GroundCheck GroundChecker;
 
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,11 +30,14 @@ public class PlayerController : MonoBehaviour
         spriteX = GetComponent<SpriteRenderer>();
         GroundChecker = GetComponentInChildren<GroundCheck>();
 
+        gm = GameObject.FindFirstObjectByType<GameManager>();       
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.gameState != GameState.InGame) return;
+
         move = Input.GetAxis("Horizontal");
 
         if (move != 0.0f)
@@ -64,6 +71,12 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         rbody.linearVelocity = new Vector2(move * currentPlayerSpeed, rbody.linearVelocity.y);
+    }
+
+    public void GameOver()
+    {
+        rbody.linearVelocity = new Vector2(0, 0);
+
     }
 
 }
