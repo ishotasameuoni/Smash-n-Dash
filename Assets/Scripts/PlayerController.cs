@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     GroundCheck GroundChecker;
 
-    
+    InputAction moveAction;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,6 +37,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (GameManager.gameState != GameState.InGame) return;
+
+        
+
 
         move = Input.GetAxis("Horizontal");
 
@@ -77,6 +80,11 @@ public class PlayerController : MonoBehaviour
     {
         rbody.linearVelocity = new Vector2(0, 0);
 
+    }
+
+    void Onmove(Input value)
+    {
+        moveAction = Get
     }
 
 }
